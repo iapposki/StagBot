@@ -1,0 +1,2 @@
+# StagBot
+My discord bot.
