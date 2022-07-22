@@ -2,6 +2,7 @@ from config import *
 import os
 from dotenv import load_dotenv
 from games import *
+from utilities import *
 
 load_dotenv()
 
