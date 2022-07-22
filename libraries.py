@@ -22,6 +22,8 @@ async def get_random_reddit_meme(context, sub="dankmemes"):
         print(err)
 
 
+
+"""Modified version of https://github.com/andrewguest/slack-free-epic-games"""
 def get_free_epic_games():
     import httpx
     from datetime import datetime
