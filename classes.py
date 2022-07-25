@@ -1,4 +1,3 @@
-
 class Game:
     def __init__(self, title, store_link, image_url):
         self.title = title
