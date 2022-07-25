@@ -1,11 +1,12 @@
-import math
-import requests
-import random
 from config import *
-import sys
 
 
 async def get_random_reddit_meme(context, sub="dankmemes"):
+    import requests
+    import math
+    import random
+    import sys
+
     try :
         url = 'https://www.reddit.com/r/' + sub + '.json?sort=top&t=week'
         params = {'limit':100}
@@ -25,7 +26,7 @@ async def get_random_reddit_meme(context, sub="dankmemes"):
 def get_free_epic_games():
     import httpx
     from datetime import datetime
-    from Class import Game
+    from classes import Game
 
     free_games_params = {
         "locale": "en-US",
@@ -76,4 +77,38 @@ def get_free_epic_games():
     # print("## Free game(s)")
     # print(free_games)
 
+    return free_games
+
+def get_free_steam_games():
+    from bs4 import BeautifulSoup
+    import requests
+    from classes import Game
+
+    free_games = []
+    STEAM_URL = "https://store.steampowered.com/search/?maxprice=free&specials=1"
+    # STEAM_URL = "https://store.steampowered.com/search/?maxprice=free&tags=9%2C19%2C21%2C492%2C597%2C122%2C4182%2C599"
+    request = requests.get(STEAM_URL)
+    soup = BeautifulSoup(request.text, "html.parser")
+
+    games = soup.find_all("a", class_="search_result_row")
+    # print(soup)
+    for game in games:
+        game_name_class = game.find("span", class_="title")
+        game_name = game_name_class.text
+        # print(f"Game: {game_name}")
+
+        game_url = game['href']
+        # print(f"\tURL: {game_url}")
+
+        game_id = game["data-ds-appid"]
+        image_url = f"https://cdn.cloudflare.steamstatic.com/steam/apps/{game_id}/header.jpg"
+        # print(f"\tImage: {image_url}")
+
+        free_games.append(
+            Game(
+                title=game_name,
+                store_link=game_url,
+                image_url=image_url,
+            )
+        )
     return free_games

@@ -1,10 +1,11 @@
 from config import *
 import sys
 
-@bot.command(name="free-games", help=" - Gets currently free games to grab (supports only epic games for now)")
+@bot.command(name="free-games", help=" - Gets currently free games to grab (supports only epic games and steam games for now)")
 async def get_free_games(context):
-    from libraries import get_free_epic_games
+    from libraries import get_free_epic_games, get_free_steam_games
     data = get_free_epic_games()
+    data += get_free_steam_games()
     for i in range(len(data)):
         try:
             url = data[i].store_link
