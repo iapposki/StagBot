@@ -6,10 +6,6 @@ async def get_free_games(context):
     from libraries import get_free_epic_games, get_free_steam_games
     data = get_free_epic_games()
     data += get_free_steam_games()
-<<<<<<< HEAD
-    data = []
-=======
->>>>>>> 5927adc203f26001f0fd8d7d6787ca7613a29f06
     if len(data) == 0:
         await context.channel.send("No free games for now!")
     else:
@@ -22,8 +18,4 @@ async def get_free_games(context):
                 await context.channel.send(embed=embedVar)
             except Exception as err:
                 print("Error : ", sys.exc_info()[0], "occurred.")
-<<<<<<< HEAD
                 print(err)
-=======
-                print(err)
->>>>>>> 5927adc203f26001f0fd8d7d6787ca7613a29f06
