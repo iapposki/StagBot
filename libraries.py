@@ -62,19 +62,23 @@ def get_free_epic_games():
             promo_end_date = datetime.strptime(game["promotions"]["promotionalOffers"][0]["promotionalOffers"][0]["endDate"],"%Y-%m-%dT%H:%M:%S.000%z",).replace(tzinfo=None)
 
             if (discount_price == 0 and promo_start_date <= datetime.now() <= promo_end_date):
-                free_games.append(
-                    Game(
-                        title=game["title"],
-                        store_link=f"https://www.epicgames.com/store/en-US/p/{game['productSlug']}"
-                        if game["productSlug"]
-                        else "https://www.epicgames.com/store/en-US/free-games",
-                        image_url=[
-                            image["url"]
-                            for image in game["keyImages"]
-                            if image["type"] == "OfferImageWide"
-                        ][0],
+                # print(game["keyImages"])
+                try : 
+                    free_games.append(
+                        Game(
+                            title=game["title"],
+                            store_link=f"https://www.epicgames.com/store/en-US/p/{game['productSlug']}"
+                            if game["productSlug"]
+                            else "https://www.epicgames.com/store/en-US/free-games",
+                            image_url=[
+                                image["url"]
+                                for image in game["keyImages"]
+                                if image["type"] == "OfferImageWide"
+                            ][0],
+                        )
                     )
-                )
+                except : 
+                    print("An exception occured.")
 
     # print("## Free game(s)")
     # print(free_games)
