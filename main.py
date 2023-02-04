@@ -3,6 +3,7 @@ import os
 from dotenv import load_dotenv
 from games import *
 from utilities import *
+import schedule_job
 
 load_dotenv()
 
@@ -21,6 +22,11 @@ async def on_ready():
         guild_count += 1
 
     print(f"StagBot running in {str(guild_count)} server(s).")
+    # scheduler = Scheduler(bot).schedule()
+    # scheduler.start()
+    schedule = schedule_job.Scheduler(bot).schedule()
+    schedule.start()
+
 
 @bot.event 
 async def on_member_join(member):
@@ -34,6 +40,8 @@ async def on_error(event, *args, **kwargs):
             f.write(f"Unhandled message: {args[0]}\n")
         else: 
             raise
+
+
 
 
 bot.run(DISCORD_TOKEN)
