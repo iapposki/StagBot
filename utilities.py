@@ -105,18 +105,18 @@ async def create_ticket(context):
     
 
 
-@bot.command(name="chain")
-async def greet(context):
-    await context.send("Say hello!")
+# @bot.command(name="chain")
+# async def greet(context):
+#     await context.send("Say hello!")
 
-    def check(m):
-        return m.content == "hello" and m.channel == context.channel
-    with open('./guild_preferences.txt', 'wb') as file:
-        # data = pickle.load(file)
-        guild_preferences = {"424404218170966016" : {}}
-        pickle.dump(guild_preferences, file, protocol=pickle.HIGHEST_PROTOCOL)
-        print('ok')
+#     def check(m):
+#         return m.content == "hello" and m.channel == context.channel
+#     with open('./guild_preferences.txt', 'wb') as file:
+#         # data = pickle.load(file)
+#         guild_preferences = {"424404218170966016" : {}}
+#         pickle.dump(guild_preferences, file, protocol=pickle.HIGHEST_PROTOCOL)
+#         print('ok')
 
-    msg = await bot.wait_for("message", check=check)
-    # msg = await bot.wait_for('m')
-    await context.send(f"Hello {msg.author}!")
+#     msg = await bot.wait_for("message", check=check)
+#     # msg = await bot.wait_for('m')
+#     await context.send(f"Hello {msg.author}!")
