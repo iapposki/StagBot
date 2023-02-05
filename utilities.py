@@ -71,7 +71,7 @@ async def setup_ticket_system(context):
             # print(data)
         # print(context.message.guild.id)
 
-@bot.command(name="create-ticket", help=" - Sets up the ticketing system.")
+@bot.command(name="create-ticket", help=" - Creates tickets only visible to the user creating it and the user with role 'admin'.")
 async def create_ticket(context):
     with open('./guild_preferences.txt', 'rb') as file:
         data = pickle.Unpickler(file)
