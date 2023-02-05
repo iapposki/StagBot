@@ -118,3 +118,9 @@ def get_free_steam_games():
             )
         )
     return free_games
+
+def get_categories_list(context):
+    categories = []
+    for category in context.message.guild.categories:
+        categories.append(category)
+    return categories
