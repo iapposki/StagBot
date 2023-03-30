@@ -11,8 +11,7 @@ DISCORD_TOKEN = os.getenv("DISCORD_TOKEN")
 
 
 @bot.event
-async def on_ready():
-    
+async def on_ready():    
     guild_count = 0
 
     for guild in bot.guilds:
