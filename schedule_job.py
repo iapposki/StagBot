@@ -20,7 +20,6 @@ class Scheduler(commands.Cog):
         data = get_free_epic_games()
         data += get_free_steam_games()
         array = np.load('fglist.npy')
-        # print('running')
         for element in data:
             if element.title not in array[-10:]:    
                 array = np.append(array,[element.title])
@@ -30,30 +29,17 @@ class Scheduler(commands.Cog):
                 embedVar.set_image(url=img_url)
                 for guild in bot.guilds:
                     try:
-                        
                         await guild.text_channels[0].send(embed = embedVar)
-                        # await context.channel.send(embed=embedVar)
                     except Exception as err:
                         print("Error : ", sys.exc_info()[0], "occurred.")
                         print(err)
-                    
-                # print(element.title)
         np.save('fglist.npy', array)
 
     def schedule(self):
         # Initialize scheduler
-        # job_defaults = {
-        #     "coalesce": True,
-        #     "max_instances": 5,
-        #     "misfire_grace_time": 15,
-        #     "replace_existing": True,
-        # }
-
-        # scheduler = AsyncIOScheduler(job_defaults = job_defaults)
         scheduler = AsyncIOScheduler()
 
-
         # Add jobs to scheduler
-        scheduler.add_job(self.schedule_func, CronTrigger.from_crontab("0 * * * *"),misfire_grace_time=300) 
         # Every hour
+        scheduler.add_job(self.schedule_func, CronTrigger.from_crontab("0 * * * *"),misfire_grace_time=300) 
         return scheduler
