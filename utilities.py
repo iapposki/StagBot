@@ -57,10 +57,8 @@ async def setup_ticket_system(context):
         with open('./guild_preferences.txt', 'rb') as file:
             data = pickle.Unpickler(file)
             data = data.load() 
-            # print(data)
         with open('./guild_preferences.txt', 'wb') as file:
             data[str(context.message.guild.id)] = {'ticket_default_channel' : category.name}
-            # print(data)
             try:
                 pickle.dump(data, file, protocol=pickle.HIGHEST_PROTOCOL)
             except Exception as e:
@@ -68,15 +66,12 @@ async def setup_ticket_system(context):
         with open('./guild_preferences.txt', 'rb') as file:
             data = pickle.Unpickler(file)
             data = data.load()
-            # print(data)
-        # print(context.message.guild.id)
 
 @bot.command(name="create-ticket", help=" - Creates tickets only visible to the user creating it and the user with role 'admin'.")
 async def create_ticket(context):
     with open('./guild_preferences.txt', 'rb') as file:
         data = pickle.Unpickler(file)
         data = data.load()
-        # print(data)
     if not data[str(context.message.guild.id)] or not data[str(context.message.guild.id)]['ticket_default_channel']:
         category = discord.utils.get(context.guild.categories, name="Tickets")
         if category is None:
