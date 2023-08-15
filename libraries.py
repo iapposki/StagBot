@@ -15,7 +15,6 @@ async def get_random_reddit_meme(context, sub="dankmemes"):
         resp = resp["data"]["children"][rand_number]["data"]
         embedVar = discord.Embed(title=resp["title"], color=0x00ff00)
         embedVar.set_image(url=resp["url"])
-        # embedVar.add_field(name="Field1", value="hi", inline=False)
         embedVar.set_footer(text="r/" + sub)
         await context.channel.send(embed=embedVar)
     except Exception as err:
@@ -42,11 +41,6 @@ def get_free_epic_games():
     # backend API request
     response = httpx.get(epic_api_url, params=free_games_params)
     
-    # print("## HTTP response code")
-    # print(response)
-    # print("## HTTP response body")
-    # print(response.json())
-
     # list of dictionaries containing information about the free games
     free_games = []
 
@@ -62,7 +56,6 @@ def get_free_epic_games():
             promo_end_date = datetime.strptime(game["promotions"]["promotionalOffers"][0]["promotionalOffers"][0]["endDate"],"%Y-%m-%dT%H:%M:%S.000%z",).replace(tzinfo=None)
 
             if (discount_price == 0 and promo_start_date <= datetime.now() <= promo_end_date):
-                # print(game["keyImages"])
                 try : 
                     free_games.append(
                         Game(
@@ -79,10 +72,6 @@ def get_free_epic_games():
                     )
                 except : 
                     print("An exception occured.")
-
-    # print("## Free game(s)")
-    # print(free_games)
-
     return free_games
 
 def get_free_steam_games():
@@ -97,19 +86,12 @@ def get_free_steam_games():
     soup = BeautifulSoup(request.text, "html.parser")
 
     games = soup.find_all("a", class_="search_result_row")
-    # print(soup)
     for game in games:
         game_name_class = game.find("span", class_="title")
         game_name = game_name_class.text
-        # print(f"Game: {game_name}")
-
         game_url = game['href']
-        # print(f"\tURL: {game_url}")
-
         game_id = game["data-ds-appid"]
         image_url = f"https://cdn.cloudflare.steamstatic.com/steam/apps/{game_id}/header.jpg"
-        # print(f"\tImage: {image_url}")
-
         free_games.append(
             Game(
                 title=game_name,
